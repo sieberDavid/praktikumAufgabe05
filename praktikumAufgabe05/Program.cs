@@ -57,7 +57,7 @@ namespace praktikumAufgabe05
         static double WurzelHeron(double x)
         {
             double wurzel=1;
-            while ((x - wurzel * wurzel) > 1e-12)
+            while ((x - wurzel * wurzel) > (0.00000000001))
             {
                 wurzel = ((double)1 / 2) * (wurzel + x / wurzel);
             }
