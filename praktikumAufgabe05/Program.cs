@@ -21,10 +21,10 @@ namespace praktikumAufgabe05
             {
                 Console.WriteLine($"{i,2} | {Fakultaet(i)}");
             }
-            //Console.WriteLine();
-            //Console.WriteLine("Berechnung der Zahl PI:");
-            //double pi = Pi(1000000);
-            //Console.WriteLine($"Pi: {pi} vs. {Math.PI} = {pi‐Math.PI}");
+            Console.WriteLine();
+            Console.WriteLine("Berechnung der Zahl PI:");
+            double pi = Pi(1000000000);
+            Console.WriteLine($"Pi: {pi} vs. {Math.PI} = {pi-Math.PI}");
 
             Console.ReadLine();
         }
@@ -53,7 +53,7 @@ namespace praktikumAufgabe05
             return ergebnis;
         }
 
-        //Unfinished!!!!!!!!!!!!!!!!!!!!!
+       
         static double WurzelHeron(double x)
         {
             double wurzel=1;
@@ -63,6 +63,31 @@ namespace praktikumAufgabe05
             }
 
             return wurzel;
+        }
+
+
+        static double Pi(int anzahlWuerfe)
+        {
+            Random zufall = new Random();
+            double pi;
+            double x;
+            double y;
+            int ausserhalb = 0;
+            int innerhalb = 0;
+
+            for (int i=0; i<anzahlWuerfe; i++)
+            {
+                x = zufall.NextDouble();
+                y = zufall.NextDouble();
+
+                if (WurzelHeron(x * x + y * y) <= 1)
+                    innerhalb++;
+                else
+                    ausserhalb++;
+            }
+
+            pi = (double)innerhalb / (innerhalb + ausserhalb)*4;
+            return pi;
         }
     }
 }
