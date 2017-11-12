@@ -23,15 +23,17 @@ namespace praktikumAufgabe05
             }
             Console.WriteLine();
             Console.WriteLine("Berechnung der Zahl PI:");
-            double pi = Pi(1000000000);
+            double pi = Pi(1000000);
             Console.WriteLine($"Pi: {pi} vs. {Math.PI} = {pi-Math.PI}");
 
             Console.ReadLine();
         }
 
+
         //Diese Funktion gibt den Absolutwert einer Gleitkommazahl zurück
         static double Absolutwert(double x)
         {
+            //Wenn Zahl negativ, invertiere sie
             if (x<0)
             {
                 x = -x;
@@ -40,7 +42,7 @@ namespace praktikumAufgabe05
             return x;
         }
 
-     
+     //Diese Funktion berechnet die Fakultaet einer Zahl
         static int Fakultaet(int n)
         {
             int ergebnis = 1;
@@ -53,10 +55,12 @@ namespace praktikumAufgabe05
             return ergebnis;
         }
 
-       
+       //Diese Funktion berechnet die Quadratwurzel einer Zahl nach dem Heron-Verfahren
         static double WurzelHeron(double x)
         {
-            double wurzel=1;
+            double wurzel=1; //Startwert x0
+
+            //Schleife, läuft bis das berechnete Ergebnis von realen Wert nur noch weniger als 1*10^-12 abweicht
             while ((x - wurzel * wurzel) > 1E-12 || (x - wurzel * wurzel) < - 1e-12)
             {
                 wurzel = ((double)1 / 2) * (wurzel + x / wurzel);
@@ -65,10 +69,12 @@ namespace praktikumAufgabe05
             return wurzel;
         }
 
-
+        //Diese Funktion berechnet die Zahl Pi aus einer Menge an Zufallszahlen
         static double Pi(int anzahlWuerfe)
         {
+            //initialisieren des Zufallsgenerators
             Random zufall = new Random();
+
             double pi;
             double x;
             double y;
@@ -77,15 +83,18 @@ namespace praktikumAufgabe05
 
             for (int i=0; i<anzahlWuerfe; i++)
             {
+                //berechnen von zwei Zufallszahlen
                 x = zufall.NextDouble();
                 y = zufall.NextDouble();
 
+                //bestimmen ob Koordinaten der Zufallszahlen innerhalb/außerhalb des Einheitskreises sind
+                //(per Pythagoras)
                 if (WurzelHeron(x * x + y * y) <= 1)
                     innerhalb++;
                 else
                     ausserhalb++;
             }
-
+            //bestimmen des Verhältnisses von Zahlen innerhalb zu Gesammtmenge, multiplizieren mit 4 um auf Pi zu kommen
             pi = (double)innerhalb / (innerhalb + ausserhalb)*4;
             return pi;
         }
